@@ -326,7 +326,7 @@ function getActiveDiet() {
 }
 
 function filterMenuItems(filter = 'all', searchText = '', diet = 'all') {
-  const menuItems = document.querySelectorAll('.menu-item');
+  const menuItems = document.querySelectorAll('.menu-items .menu-item');
   let visibleCount = 0;
   const searchLower = (menuSearch ? menuSearch.value.trim() : searchText).toLowerCase();
 
@@ -446,7 +446,7 @@ function getAvailableTables(dateStr, timeStr, guestsCount) {
 
 class ReservationAPI {
   constructor() {
-    this.baseURL = 'http://localhost:5000/api';
+    this.baseURL = 'http://localhost:5005/api';
     this.token = localStorage.getItem('token');
   }
   setToken(token) {
@@ -667,7 +667,7 @@ async function handleFormSubmit(e) {
     booking_time: formatBookingTime(timeVal),
     special_requests: structuredRequests,
     restaurant_name: 'The Lighthouse',
-    restaurant_phone: '(555) 123-4567',
+    restaurant_phone: '+91 9879598795',
     restaurant_email: 'reservations@thelighthouse.com',
   };
 
@@ -723,7 +723,7 @@ async function handleFormSubmit(e) {
       updateAvailableTimes();
     } catch (err) {
       console.error('[EmailJS] Error:', err);
-      showReservationToast('error', 'We couldn\'t send your confirmation email. Please call us at (555) 123-4567.');
+      showReservationToast('error', 'We couldn\'t send your confirmation email. Please call us at +91 9879598795.');
     } finally {
       submitBtn.textContent = originalText;
       submitBtn.disabled = false;
@@ -741,7 +741,7 @@ async function handleFormSubmit(e) {
     updateAvailableTimes();
   } catch (err) {
     console.error('[EmailJS] Error:', err);
-    showReservationToast('error', 'We couldn\'t send your confirmation email. Please call us at (555) 123-4567 or try again.');
+    showReservationToast('error', 'We couldn\'t send your confirmation email. Please call us at +91 9879598795 or try again.');
   } finally {
     submitBtn.textContent = originalText;
     submitBtn.disabled = false;
@@ -2028,7 +2028,7 @@ function showReservationSuccessModal(date, time, guests) {
 
   const formatTime = (dt) => dt.toISOString().replace(/-|:|\.\d\d\d/g, "");
 
-  const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Table+Reservation+-+The+Lighthouse&dates=${formatTime(finalStart)}/${formatTime(finalEnd)}&details=Table+reservation+confirmed+for+${guests}+guests.+We+look+forward+to+serving+you.&location=123+Harbor+View+Drive,+Coastal+City,+CA`;
+  const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Table+Reservation+-+The+Lighthouse&dates=${formatTime(finalStart)}/${formatTime(finalEnd)}&details=Table+reservation+confirmed+for+${guests}+guests.+We+look+forward+to+serving+you.&location=42/3,+Sarat+Bose+Road,+Near+Minto+Park,+Elgin,+Kolkata+-+700020,+West+Bengal,+India`;
 
   if (googleBtn) {
     googleBtn.onclick = () => window.open(googleUrl, "_blank");
@@ -2036,7 +2036,7 @@ function showReservationSuccessModal(date, time, guests) {
 
   if (icsBtn) {
     icsBtn.onclick = () => {
-      const icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//The Lighthouse//NONSGML Table Reservation//EN\nBEGIN:VEVENT\nUID:${Date.now()}@thelighthouse.com\nDTSTAMP:${formatTime(new Date())}\nDTSTART:${formatTime(finalStart)}\nDTEND:${formatTime(finalEnd)}\nSUMMARY:Table Reservation - The Lighthouse\nDESCRIPTION:Table reservation confirmed for ${guests} guests.\nLOCATION:123 Harbor View Drive, Coastal City, CA\nEND:VEVENT\nEND:VCALENDAR`;
+      const icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//The Lighthouse//NONSGML Table Reservation//EN\nBEGIN:VEVENT\nUID:${Date.now()}@thelighthouse.com\nDTSTAMP:${formatTime(new Date())}\nDTSTART:${formatTime(finalStart)}\nDTEND:${formatTime(finalEnd)}\nSUMMARY:Table Reservation - The Lighthouse\nDESCRIPTION:Table reservation confirmed for ${guests} guests.\nLOCATION:42/3, Sarat Bose Road, Near Minto Park, Elgin, Kolkata - 700020, West Bengal, India\nEND:VEVENT\nEND:VCALENDAR`;
       const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
