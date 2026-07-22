@@ -116,7 +116,7 @@ const Menu = () => {
         {!loading && (
           <p className="menu-count">
             {filtered.length} {filtered.length === 1 ? 'dish' : 'dishes'} found
-            {user?.dietaryPreference !== 'all' && (
+            {user && user.dietaryPreference !== 'all' && (
               <span className="menu-count__pref"> · Filtered by your profile: <strong className="gold">{user.dietaryPreference}</strong></span>
             )}
           </p>
